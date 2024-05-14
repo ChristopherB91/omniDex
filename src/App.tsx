@@ -14,7 +14,7 @@ function App() {
       <br />
       <div className="p-1 bg-gray-400 rounded-3xl sm:w-1/2 ">
         <div className="h-96 bg-black rounded-3xl flex justify-around items-center flex-col">
-          <div className="w-4/5 bg-lime-600 rounded-3xl">
+          <div className="w-4/5 bg-lime-600 rounded-3xl text-lg text-center overflow-hidden">
             <Selections />
           </div>
           <Controls />
