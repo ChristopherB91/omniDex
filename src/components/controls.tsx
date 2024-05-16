@@ -20,7 +20,7 @@ const Controls: React.FC<Props> = ({ num, setNum }) => {
   };
 
   const prev = () => {
-    if (num > 1) {
+    if (num > 0) {
       setNum(num - 1);
     } else {
       setNum(5);
