@@ -2,52 +2,30 @@ interface Props {
   num: number;
 }
 
+const presets = [
+  { presetName: "Preset1" },
+  { presetName: "Preset2" },
+  { presetName: "Preset3" },
+  { presetName: "Preset4" },
+  { presetName: "Preset5" },
+  { presetName: "Preset6" },
+];
 const Selections: React.FC<Props> = ({ num }) => {
   return (
     <>
       <ul id="presets">
-        <li
-          className={
-            num === 0 ? "font-custom bg-lime-800 text-white" : "font-custom"
-          }
-        >
-          Preset1
-        </li>
-        <li
-          className={
-            num === 1 ? "font-custom bg-lime-800 text-white" : "font-custom"
-          }
-        >
-          Preset2
-        </li>
-        <li
-          className={
-            num === 2 ? "font-custom bg-lime-800 text-white" : "font-custom"
-          }
-        >
-          Preset3
-        </li>
-        <li
-          className={
-            num === 3 ? "font-custom bg-lime-800 text-white" : "font-custom"
-          }
-        >
-          Preset4
-        </li>
-        <li
-          className={
-            num === 4 ? "font-custom bg-lime-800 text-white" : "font-custom"
-          }
-        >
-          Preset5
-        </li>
-        <li
-          className={
-            num === 5 ? "font-custom bg-lime-800 text-white" : "font-custom"
-          }
-        >
-          Preset6
-        </li>
+        {presets.map((preset, index) => (
+          <li
+            key={index}
+            className={
+              num === index
+                ? "font-custom bg-lime-800 text-white"
+                : "font-custom"
+            }
+          >
+            {preset.presetName}
+          </li>
+        ))}
       </ul>
     </>
   );
