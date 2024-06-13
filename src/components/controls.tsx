@@ -7,9 +7,11 @@ import omni from "../assets/omni.svg";
 interface Props {
   num: number;
   setNum: React.Dispatch<React.SetStateAction<number>>;
+  fetched: boolean;
+  setF: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Controls: React.FC<Props> = ({ num, setNum }) => {
+const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
   const next = () => {
     if (num < 5) {
       setNum(num + 1);
@@ -26,6 +28,14 @@ const Controls: React.FC<Props> = ({ num, setNum }) => {
       setNum(5);
     }
     console.log(num);
+  };
+
+  const fetcher = () => {
+    if (fetched === true) {
+      setF(false);
+    } else {
+      setF(true);
+    }
   };
   return (
     <>
@@ -65,6 +75,7 @@ const Controls: React.FC<Props> = ({ num, setNum }) => {
           type="image"
           src={omni}
           alt="confirmation button"
+          onClick={fetcher}
           className="h-auto w-1/3"
         />
       </div>
