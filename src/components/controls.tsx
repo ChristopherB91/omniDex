@@ -13,21 +13,21 @@ interface Props {
 
 const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
   const next = () => {
+    console.log(num);
     if (num < 5) {
       setNum(num + 1);
     } else {
       setNum((num = 0));
     }
-    console.log(num);
   };
 
   const prev = () => {
+    console.log(num);
     if (num > 0) {
       setNum(num - 1);
     } else {
       setNum(5);
     }
-    console.log(num);
   };
 
   const fetcher = () => {
@@ -49,17 +49,20 @@ const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
             src={up}
             alt="up arrow"
             onClick={prev}
+            disabled={fetched ? true : false}
             className="h-auto w-3/4 row-start-1 row-end-1 col-start-2 col-end-3"
           />
           <input
             type="image"
             src={left}
             alt="left arrow"
+            disabled={fetched ? false : true}
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-1 col-end-2 place-self-end"
           />
           <input
             type="image"
             src={right}
+            disabled={fetched ? false : true}
             alt="right arrow"
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-3 col-end-4 place-self-start"
           />
@@ -68,6 +71,7 @@ const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
             src={down}
             alt="down arrow"
             onClick={next}
+            disabled={fetched ? true : false}
             className="h-auto w-3/4 row-start-3 row-end-4 col-start-2 col-end-3"
           />
         </div>

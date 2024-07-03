@@ -5,20 +5,25 @@ interface Props {
   URL: string;
 }
 
-interface Pokemon {
+interface Primus {
   name: string;
+  nickname: string;
+  image: string;
+  silhouette: string;
+  abilities: JSON;
+  ultimate: string | null;
 }
 
 const Fetch: React.FC<Props> = ({ URL }) => {
-  const [data, setData] = useState<Pokemon[] | undefined>([]);
+  const [data, setData] = useState<Primus[]>([]);
   const [loading, setLoading] = useState<boolean>();
   const [error, setError] = useState<string>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get<{ results: Pokemon[] }>(URL);
-        setData(res.data.results);
+        const res = await axios.get(URL);
+        setData(res.data);
       } catch (err) {
         setError("Error fetching data");
       } finally {
@@ -26,20 +31,17 @@ const Fetch: React.FC<Props> = ({ URL }) => {
       }
     };
     fetchData();
-  });
+  }, [URL]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>(error)</p>;
-  console.log(data);
   return (
     <>
-      <ul>
-        {data ? (
-          data.map((pokemon, index) => <li key={index}>{pokemon.name}</li>)
-        ) : (
-          <p>No data available</p>
-        )}
-      </ul>
+      <img
+        src={data[0].silhouette}
+        alt="silhouette of alien"
+        className="h-40 max-w-full"
+      />
     </>
   );
 };
