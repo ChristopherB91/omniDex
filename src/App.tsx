@@ -5,6 +5,7 @@ import Selections from "./components/selections";
 
 function App() {
   const [presetNum, setPresetNum] = useState<number>(0);
+  const [alienNum, setAlienNum] = useState<number>(presetNum * 10);
   const [fetched, setFetched] = useState<boolean>(false);
   const url: string = `http://localhost:8080/primus/allAliens`;
 
@@ -20,14 +21,20 @@ function App() {
       <br />
       <div className="p-1 bg-gray-400 rounded-3xl sm:w-1/2 animate-open md:w-2/4 lg:w-1/4">
         <div className="h-96 bg-black rounded-3xl flex justify-around items-center flex-col animate-open2">
-          <div className="w-4/5 flex justify-center bg-lime-600 rounded-3xl text-lg text-center overflow-hidden animate-open3">
-            {fetched ? <Fetch URL={url} /> : <Selections num={presetNum} />}
+          <div className="w-4/5 bg-lime-600 rounded-3xl text-lg text-center overflow-hidden animate-open3">
+            {fetched ? (
+              <Fetch URL={url} alien={alienNum} />
+            ) : (
+              <Selections num={presetNum} />
+            )}
           </div>
           <Controls
             num={presetNum}
             setNum={setPresetNum}
             fetched={fetched}
             setF={setFetched}
+            alien={alienNum}
+            setAlien={setAlienNum}
           />
         </div>
       </div>

@@ -9,11 +9,19 @@ interface Props {
   setNum: React.Dispatch<React.SetStateAction<number>>;
   fetched: boolean;
   setF: React.Dispatch<React.SetStateAction<boolean>>;
+  alien: number;
+  setAlien: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
+const Controls: React.FC<Props> = ({
+  num,
+  setNum,
+  fetched,
+  setF,
+  alien,
+  setAlien,
+}) => {
   const next = () => {
-    console.log(num);
     if (num < 5) {
       setNum(num + 1);
     } else {
@@ -22,11 +30,26 @@ const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
   };
 
   const prev = () => {
-    console.log(num);
     if (num > 0) {
       setNum(num - 1);
     } else {
       setNum(5);
+    }
+  };
+
+  const nextA = () => {
+    if (alien < num * 10 + 9) {
+      setAlien(alien + 1);
+    } else {
+      setAlien((alien = num * 10));
+    }
+  };
+
+  const prevA = () => {
+    if (alien > num * 0) {
+      setAlien(alien - 1);
+    } else {
+      setAlien(num * 10 + 9);
     }
   };
 
@@ -56,6 +79,7 @@ const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
             type="image"
             src={left}
             alt="left arrow"
+            onClick={nextA}
             disabled={fetched ? false : true}
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-1 col-end-2 place-self-end"
           />
@@ -63,6 +87,7 @@ const Controls: React.FC<Props> = ({ num, setNum, fetched, setF }) => {
             type="image"
             src={right}
             disabled={fetched ? false : true}
+            onClick={prevA}
             alt="right arrow"
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-3 col-end-4 place-self-start"
           />

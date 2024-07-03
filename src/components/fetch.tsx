@@ -3,6 +3,7 @@ import axios from "axios";
 
 interface Props {
   URL: string;
+  alien: number;
 }
 
 interface Primus {
@@ -14,7 +15,7 @@ interface Primus {
   ultimate: string | null;
 }
 
-const Fetch: React.FC<Props> = ({ URL }) => {
+const Fetch: React.FC<Props> = ({ URL, alien }) => {
   const [data, setData] = useState<Primus[]>([]);
   const [loading, setLoading] = useState<boolean>();
   const [error, setError] = useState<string>();
@@ -38,7 +39,7 @@ const Fetch: React.FC<Props> = ({ URL }) => {
   return (
     <>
       <img
-        src={data[0].silhouette}
+        src={data[alien].silhouette}
         alt="silhouette of alien"
         className="h-40 max-w-full"
       />
