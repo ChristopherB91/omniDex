@@ -7,6 +7,7 @@ function App() {
   const [presetNum, setPresetNum] = useState<number>(0);
   const [alienNum, setAlienNum] = useState<number>(presetNum * 10);
   const [fetched, setFetched] = useState<boolean>(false);
+  const [dialed, setDialed] = useState<boolean>(false);
   const url: string = `http://localhost:8080/primus/allAliens`;
 
   return (
@@ -23,7 +24,7 @@ function App() {
         <div className="h-96 bg-black rounded-3xl flex justify-around items-center flex-col animate-open2">
           <div className="w-4/5 bg-lime-600 rounded-3xl text-lg text-center overflow-hidden animate-open3">
             {fetched ? (
-              <Fetch URL={url} alien={alienNum} />
+              <Fetch URL={url} alien={alienNum} dial={dialed} />
             ) : (
               <Selections num={presetNum} />
             )}
@@ -35,6 +36,8 @@ function App() {
             setF={setFetched}
             alien={alienNum}
             setAlien={setAlienNum}
+            dial={dialed}
+            setDial={setDialed}
           />
         </div>
       </div>

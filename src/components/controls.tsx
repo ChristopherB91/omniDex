@@ -3,6 +3,7 @@ import right from "../assets/arrowR.svg";
 import up from "../assets/arrowU.svg";
 import down from "../assets/arrowD.svg";
 import omni from "../assets/omni.svg";
+import omniDe from "../assets/omniDe.svg";
 
 interface Props {
   num: number;
@@ -11,6 +12,8 @@ interface Props {
   setF: React.Dispatch<React.SetStateAction<boolean>>;
   alien: number;
   setAlien: React.Dispatch<React.SetStateAction<number>>;
+  dial: boolean;
+  setDial: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Controls: React.FC<Props> = ({
@@ -20,6 +23,8 @@ const Controls: React.FC<Props> = ({
   setF,
   alien,
   setAlien,
+  dial,
+  setDial,
 }) => {
   const next = () => {
     if (num < 5) {
@@ -60,6 +65,17 @@ const Controls: React.FC<Props> = ({
       setF(true);
     }
   };
+
+  const dialed = () => {
+    setDial(true);
+  };
+
+  const timeout = () => {
+    setDial(false);
+    setF(false);
+    setNum(0);
+    setAlien(0);
+  };
   return (
     <>
       <div id="container" className="flex justify-evenly">
@@ -80,13 +96,13 @@ const Controls: React.FC<Props> = ({
             src={left}
             alt="left arrow"
             onClick={nextA}
-            disabled={fetched ? false : true}
+            disabled={dial ? true : false}
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-1 col-end-2 place-self-end"
           />
           <input
             type="image"
             src={right}
-            disabled={fetched ? false : true}
+            disabled={dial ? true : false}
             onClick={prevA}
             alt="right arrow"
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-3 col-end-4 place-self-start"
@@ -100,13 +116,23 @@ const Controls: React.FC<Props> = ({
             className="h-auto w-3/4 row-start-3 row-end-4 col-start-2 col-end-3"
           />
         </div>
-        <input
-          type="image"
-          src={omni}
-          alt="confirmation button"
-          onClick={fetcher}
-          className="h-auto w-1/3"
-        />
+        {dial ? (
+          <input
+            type="image"
+            src={omniDe}
+            alt="confirmation button"
+            onClick={timeout}
+            className="h-auto w-1/3"
+          />
+        ) : (
+          <input
+            type="image"
+            src={omni}
+            alt="confirmation button"
+            onClick={fetched ? dialed : fetcher}
+            className="h-auto w-1/3"
+          />
+        )}
       </div>
     </>
   );

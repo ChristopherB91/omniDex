@@ -4,6 +4,7 @@ import axios from "axios";
 interface Props {
   URL: string;
   alien: number;
+  dial: boolean;
 }
 
 interface Primus {
@@ -15,9 +16,9 @@ interface Primus {
   ultimate: string | null;
 }
 
-const Fetch: React.FC<Props> = ({ URL, alien }) => {
+const Fetch: React.FC<Props> = ({ URL, alien, dial }) => {
   const [data, setData] = useState<Primus[]>([]);
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
 
   useEffect(() => {
@@ -34,15 +35,25 @@ const Fetch: React.FC<Props> = ({ URL, alien }) => {
     fetchData();
   }, [URL]);
 
+  console.log(data);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>(error)</p>;
   return (
     <>
-      <img
-        src={data[alien].silhouette}
-        alt="silhouette of alien"
-        className="h-40 max-w-full"
-      />
+      {dial ? (
+        <img
+          src={data[alien].image}
+          alt="silhouette of alien"
+          className="h-40 max-w-full"
+        />
+      ) : (
+        <img
+          src={data[alien].silhouette}
+          alt="silhouette of alien"
+          className="h-40 max-w-full"
+        />
+      )}
     </>
   );
 };
