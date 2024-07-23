@@ -27,7 +27,7 @@ const Controls: React.FC<Props> = ({
   setDial,
 }) => {
   const next = () => {
-    if (num < 5) {
+    if (num < 6) {
       setNum(num + 1);
     } else {
       setNum((num = 0));
@@ -38,7 +38,7 @@ const Controls: React.FC<Props> = ({
     if (num > 0) {
       setNum(num - 1);
     } else {
-      setNum(5);
+      setNum(6);
     }
   };
 
