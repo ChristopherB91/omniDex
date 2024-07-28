@@ -51,7 +51,7 @@ const Controls: React.FC<Props> = ({
   };
 
   const prevA = () => {
-    if (alien > num * 0) {
+    if (alien > num * 10) {
       setAlien(alien - 1);
     } else {
       setAlien(num * 10 + 9);
@@ -95,15 +95,15 @@ const Controls: React.FC<Props> = ({
             type="image"
             src={left}
             alt="left arrow"
-            onClick={nextA}
-            disabled={dial ? true : false}
+            onClick={prevA}
+            disabled={dial ? true : false || fetched ? false : true}
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-1 col-end-2 place-self-end"
           />
           <input
             type="image"
             src={right}
-            disabled={dial ? true : false}
-            onClick={prevA}
+            disabled={dial ? true : false || fetched ? false : true}
+            onClick={nextA}
             alt="right arrow"
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-3 col-end-4 place-self-start"
           />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Form from "./form";
 
 interface Props {
   URL: string;
@@ -36,8 +37,6 @@ const Fetch: React.FC<Props> = ({ URL, alien, dial, preset }) => {
     fetchData();
   }, [URL]);
 
-  console.log(data);
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>(error)</p>;
   if (preset !== 6)
@@ -58,6 +57,7 @@ const Fetch: React.FC<Props> = ({ URL, alien, dial, preset }) => {
         )}
       </>
     );
+  else return <Form alien={alien} />;
 };
 
 export default Fetch;
