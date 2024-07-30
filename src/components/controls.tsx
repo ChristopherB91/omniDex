@@ -43,27 +43,26 @@ const Controls: React.FC<Props> = ({
   };
 
   const nextA = () => {
-    if (alien < num * 10 + 9) {
-      setAlien(alien + 1);
+    if (alien >= num * 10 + 9) {
+      setAlien(num * 10);
     } else {
-      setAlien((alien = num * 10));
+      setAlien(alien + 1);
+      console.log(alien);
     }
   };
 
   const prevA = () => {
-    if (alien > num * 10) {
-      setAlien(alien - 1);
-    } else {
+    if (alien <= num * 10) {
       setAlien(num * 10 + 9);
+    } else {
+      setAlien(alien - 1);
+      console.log(alien);
     }
   };
 
   const fetcher = () => {
-    if (fetched === true) {
-      setF(false);
-    } else {
-      setF(true);
-    }
+    setAlien(num * 10);
+    setF(true);
   };
 
   const dialed = () => {
