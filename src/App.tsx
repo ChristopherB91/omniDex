@@ -20,7 +20,7 @@ function App() {
         </h1>
       </div>
       <br />
-      <div className="p-1 bg-gray-400 rounded-3xl sm:w-1/2 animate-open md:w-2/4 lg:w-2/4">
+      <div className="p-1 bg-gray-400 rounded-3xl sm:w-4/6 animate-open md:w-3/6 lg:w-2/6">
         <div className="h-96 bg-black rounded-3xl flex justify-around items-center flex-col animate-open2">
           <div className="w-4/5 max-h-44 overflow-hidden bg-lime-600 rounded-3xl text-lg text-center animate-open3">
             {fetched ? (

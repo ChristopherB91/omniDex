@@ -45,18 +45,22 @@ const Fetch: React.FC<Props> = ({ URL, alien, dial, preset }) => {
       <>
         {dial ? (
           <div className="grid grid-cols-3">
-            <img
-              src={data[alien].image}
-              alt="silhouette of alien"
-              className="h-40 max-w-full"
-            />
+            <div className="flex justify-center items-center">
+              <img
+                src={data[alien].image}
+                alt="silhouette of alien"
+                className="h-40 max-w-full"
+              />
+            </div>
             <div>
               <p className="bg-lime-800 text-white underline">Species</p>
-              <p>{data[alien].name}</p>
+              <p>
+                {data[alien].name === null ? "Unkown" : `${data[alien].name}`}
+              </p>
               <p className="bg-lime-800 text-white underline">Nickname</p>
               <p>{data[alien].nickname}</p>
             </div>
-            <div className="overflow-y-scroll text-lg h-44">
+            <div className="overflow-y-scroll text-lg h-44 no-scrollbar">
               <p className="bg-lime-800 text-white underline">Abilities: </p>
               {data[alien].abilities.map((ability, index) => {
                 return <p key={index}>{ability}</p>;

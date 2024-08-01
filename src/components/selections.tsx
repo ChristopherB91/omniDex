@@ -30,9 +30,7 @@ const Selections: React.FC<Props> = ({ num }) => {
             <li
               key={index}
               className={
-                isActive
-                  ? "font-custom bg-lime-800 text-white animate-text"
-                  : "font-custom animate-text"
+                isActive ? "font-custom bg-lime-800 text-white" : "font-custom"
               }
             >
               {preset.presetName}
