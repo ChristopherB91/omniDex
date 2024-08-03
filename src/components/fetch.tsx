@@ -1,13 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Form from "./form";
-
-interface Props {
-  URL: string;
-  alien: number;
-  dial: boolean;
-  preset: number;
-}
+import ultimatrix from "../assets/omniUlt.svg";
 
 interface Primus {
   name: string;
@@ -18,27 +10,37 @@ interface Primus {
   ultimate: string | null;
 }
 
-const Fetch: React.FC<Props> = ({ URL, alien, dial, preset }) => {
-  const [data, setData] = useState<Primus[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>();
+interface Props {
+  URL: string;
+  alien: number;
+  dial: boolean;
+  preset: number;
+  load: boolean;
+  error: string | undefined;
+  data: Primus[];
+  ult: boolean;
+  setUlt: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(URL);
-        setData(res.data);
-      } catch (err) {
-        setError("Error fetching data");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [URL]);
-
-  console.log(data);
-  if (loading) return <p>Loading...</p>;
+const Fetch: React.FC<Props> = ({
+  URL,
+  alien,
+  dial,
+  preset,
+  load,
+  error,
+  data,
+  ult,
+  setUlt,
+}) => {
+  const ultimate = () => {
+    if (ult) {
+      setUlt(false);
+    } else {
+      setUlt(true);
+    }
+  };
+  if (load) return <p>Loading...</p>;
   if (error) return <p>(error)</p>;
   if (preset !== 6)
     return (
@@ -47,7 +49,7 @@ const Fetch: React.FC<Props> = ({ URL, alien, dial, preset }) => {
           <div className="grid grid-cols-3">
             <div className="flex justify-center items-center">
               <img
-                src={data[alien].image}
+                src={ult ? `${data[alien].ultimate}` : `${data[alien].image}`}
                 alt="silhouette of alien"
                 className="h-40 max-w-full"
               />
@@ -59,10 +61,18 @@ const Fetch: React.FC<Props> = ({ URL, alien, dial, preset }) => {
               </p>
               <p className="bg-lime-800 text-white underline">Nickname</p>
               <p>{data[alien].nickname}</p>
+              {data[alien].ultimate && (
+                <input
+                  type="image"
+                  src={ultimatrix}
+                  onClick={ultimate}
+                  className="h-auto w-2/4"
+                />
+              )}
             </div>
             <div className="overflow-y-scroll text-lg h-44 no-scrollbar">
               <p className="bg-lime-800 text-white underline">Abilities: </p>
-              {data[alien].abilities.map((ability, index) => {
+              {data[alien].abilities.map((ability: string, index: number) => {
                 return <p key={index}>{ability}</p>;
               })}
             </div>
@@ -78,7 +88,7 @@ const Fetch: React.FC<Props> = ({ URL, alien, dial, preset }) => {
         )}
       </>
     );
-  else return <Form alien={alien} />;
+  else return <Form url={URL} />;
 };
 
 export default Fetch;

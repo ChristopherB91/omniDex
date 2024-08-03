@@ -1,0 +1,15 @@
+<svg width="348" height="277" viewBox="0 0 348 277" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line y1="-15" x2="404.022" y2="-15" transform="matrix(-0.77966 -0.626203 -0.626203 0.77966 329 277)" stroke="#404040" stroke-width="30"/>
+<line x1="9.60695" y1="265.305" x2="324.607" y2="12.3051" stroke="#404040" stroke-width="30"/>
+<ellipse cx="170.5" cy="148" rx="121.5" ry="118" fill="#404040"/>
+<ellipse cx="171" cy="148" rx="109" ry="107" fill="black"/>
+<ellipse cx="170.5" cy="148" rx="85.5" ry="81" fill="#929292"/>
+<ellipse cx="171" cy="148" rx="73" ry="71" fill="#404040"/>
+<path d="M130 91L156.5 150.978L129 205" stroke="black" stroke-width="10"/>
+<path d="M210.024 91L183.524 150.978L211.024 205" stroke="black" stroke-width="10"/>
+<ellipse cx="55.5" cy="151" rx="6.5" ry="7" fill="#77AB09"/>
+<ellipse cx="286.5" cy="151" rx="6.5" ry="7" fill="#77AB09"/>
+<ellipse cx="170.5" cy="260.5" rx="6.5" ry="5.5" fill="#77AB09"/>
+<ellipse cx="170.5" cy="35.5" rx="6.5" ry="5.5" fill="#77AB09"/>
+<path d="M168 78C151.589 77.6937 142.7 77.9998 135 91L161 149L135 208C142.58 214.609 150.012 216.928 168 219C187.603 216.36 196.947 214.257 207 208L179 149L207 91C203.314 81.6701 192.458 79.6773 168 78Z" fill="#5C8800" stroke="#77AB09"/>
+</svg>

@@ -14,6 +14,7 @@ interface Props {
   setAlien: React.Dispatch<React.SetStateAction<number>>;
   dial: boolean;
   setDial: React.Dispatch<React.SetStateAction<boolean>>;
+  setUlt: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Controls: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const Controls: React.FC<Props> = ({
   setAlien,
   dial,
   setDial,
+  setUlt,
 }) => {
   const next = () => {
     if (num < 6) {
@@ -47,7 +49,6 @@ const Controls: React.FC<Props> = ({
       setAlien(num * 10);
     } else {
       setAlien(alien + 1);
-      console.log(alien);
     }
   };
 
@@ -56,7 +57,6 @@ const Controls: React.FC<Props> = ({
       setAlien(num * 10 + 9);
     } else {
       setAlien(alien - 1);
-      console.log(alien);
     }
   };
 
@@ -72,9 +72,11 @@ const Controls: React.FC<Props> = ({
   const timeout = () => {
     setDial(false);
     setF(false);
+    setUlt(false);
     setNum(0);
     setAlien(0);
   };
+
   return (
     <>
       <div id="container" className="flex justify-evenly">
