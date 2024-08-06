@@ -15,6 +15,8 @@ interface Props {
   dial: boolean;
   setDial: React.Dispatch<React.SetStateAction<boolean>>;
   setUlt: React.Dispatch<React.SetStateAction<boolean>>;
+  err: string | undefined;
+  submit: (e: React.SyntheticEvent) => void;
 }
 
 const Controls: React.FC<Props> = ({
@@ -27,6 +29,8 @@ const Controls: React.FC<Props> = ({
   dial,
   setDial,
   setUlt,
+  err,
+  submit,
 }) => {
   const next = () => {
     if (num < 6) {
@@ -97,13 +101,17 @@ const Controls: React.FC<Props> = ({
             src={left}
             alt="left arrow"
             onClick={prevA}
-            disabled={dial ? true : false || fetched ? false : true}
+            disabled={
+              dial || num === 6 ? true : false || fetched ? false : true
+            }
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-1 col-end-2 place-self-end"
           />
           <input
             type="image"
             src={right}
-            disabled={dial ? true : false || fetched ? false : true}
+            disabled={
+              dial || num === 6 ? true : false || fetched ? false : true
+            }
             onClick={nextA}
             alt="right arrow"
             className="h-auto w-3/4 row-start-2 row-end-3 col-start-3 col-end-4 place-self-start"
@@ -117,7 +125,14 @@ const Controls: React.FC<Props> = ({
             className="h-auto w-3/4 row-start-3 row-end-4 col-start-2 col-end-3"
           />
         </div>
-        {dial ? (
+        {fetched && num === 6 ? (
+          <input
+            type="Image"
+            className="h-auto w-1/3"
+            src={omni}
+            onClick={submit}
+          />
+        ) : dial || err ? (
           <input
             type="image"
             src={omniDe}

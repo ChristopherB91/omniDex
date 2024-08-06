@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Fetch from "./components/fetch";
 import Controls from "./components/controls";
@@ -22,12 +22,13 @@ function App() {
   const [data, setData] = useState<Primus[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
-  const baseUrl: string = `http://localhost:8080/primus/allAliens`;
+  const formRef = useRef<HTMLFormElement>(null);
+  const baseUrl: string = `http://localhost:8080/primus`;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(baseUrl);
+        const res = await axios.get(baseUrl + "/allAliens");
         setData(res.data);
       } catch (err) {
         setError("Error fetching data");
@@ -37,6 +38,12 @@ function App() {
     };
     fetchData();
   }, [baseUrl]);
+
+  const triggerFormSubmit = () => {
+    if (formRef.current) {
+      formRef.current.submit();
+    }
+  };
 
   return (
     <>
@@ -62,6 +69,8 @@ function App() {
                 data={data}
                 ult={ultimate}
                 setUlt={setUltimate}
+                fref={formRef}
+                submit={triggerFormSubmit}
               />
             ) : (
               <Selections num={presetNum} />
@@ -77,6 +86,8 @@ function App() {
             dial={dialed}
             setDial={setDialed}
             setUlt={setUltimate}
+            err={error}
+            submit={triggerFormSubmit}
           />
         </div>
       </div>

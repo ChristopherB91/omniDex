@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 interface Props {
   url: string;
+  fRef: React.RefObject<HTMLFormElement>;
 }
 
 interface data {
@@ -14,7 +15,7 @@ interface data {
   ultimate: string;
 }
 
-const Form: React.FC<Props> = ({ url }) => {
+const Form: React.FC<Props> = ({ url, fRef }) => {
   const [formData, setFormData] = useState<data>({
     name: "",
     nickname: "",
@@ -24,29 +25,25 @@ const Form: React.FC<Props> = ({ url }) => {
     ultimate: "",
   });
 
-  const formRef = useRef(null);
-
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    if (name === "abilities") {
-      setFormData({
-        ...formData,
-        abilities: value.split(",").map((ability) => ability.trim()),
-      });
-    }
     setFormData({
       ...formData,
-      [e.currentTarget.name]: e.currentTarget.value,
-    });
+      [name]:
+        name === "abilities"
+          ? value.split(" ").map((ability) => ability.trim())
+          : value,
+    } as Pick<data, keyof data>); // Type assertion to Pick<Data, keyof Data>
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${url}/addAlien`, formData);
-      console.log(response.data);
+      window.alert(response.data);
     } catch (error) {
       console.error("Error injectiing alien DNA", error);
+      window.alert("Error injectiing alien DNA");
     }
   };
 
@@ -92,16 +89,14 @@ const Form: React.FC<Props> = ({ url }) => {
   return (
     <>
       <form
-        ref={formRef}
+        ref={fRef}
         onSubmit={handleSubmit}
         className="font-custom text-lg flex flex-col items-center overflow-y-scroll no-scrollbar max-h-44"
       >
         {questions.map((question, index) => {
           return (
             <div key={index}>
-              <label key={index} htmlFor={question.name}>
-                {/* {question.label} */}
-              </label>
+              <label htmlFor={question.name}>{question.label}</label>
               <br />
               <input
                 key={index}
@@ -111,17 +106,13 @@ const Form: React.FC<Props> = ({ url }) => {
                 placeholder={question.placeholder}
                 required={question.placeholder === "Required"}
                 onChange={change}
-                value={formData[question.name]}
+                value={formData[question.name as keyof data] || ""}
                 autoFocus={question.name === "name"}
               />
             </div>
           );
         })}
-        <input
-          type="submit"
-          value="SUBMIT"
-          className="bg-lime-800 text-white"
-        />
+        <input type="submit" className="visible" />
       </form>
     </>
   );

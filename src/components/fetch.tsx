@@ -1,5 +1,6 @@
 import Form from "./form";
 import ultimatrix from "../assets/omniUlt.svg";
+import { useState } from "react";
 
 interface Primus {
   name: string;
@@ -20,6 +21,8 @@ interface Props {
   data: Primus[];
   ult: boolean;
   setUlt: React.Dispatch<React.SetStateAction<boolean>>;
+  fref: React.RefObject<HTMLFormElement>;
+  submit: (e: React.SyntheticEvent) => void;
 }
 
 const Fetch: React.FC<Props> = ({
@@ -32,7 +35,18 @@ const Fetch: React.FC<Props> = ({
   data,
   ult,
   setUlt,
+  fref,
 }) => {
+  const [add, setAdd] = useState<boolean>(false);
+
+  const addAlien = () => {
+    if (add) {
+      setAdd(false);
+    } else {
+      setAdd(true);
+    }
+  };
+
   const ultimate = () => {
     if (ult) {
       setUlt(false);
@@ -46,7 +60,7 @@ const Fetch: React.FC<Props> = ({
     return (
       <>
         {dial ? (
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-3 text-sm justify-center-center">
             <div className="flex justify-center items-center">
               <img
                 src={ult ? `${data[alien].ultimate}` : `${data[alien].image}`}
@@ -55,7 +69,7 @@ const Fetch: React.FC<Props> = ({
               />
             </div>
             <div>
-              <p className="bg-lime-800 text-white underline">Species</p>
+              <p className="bg-lime-800 text-white underline text">Species</p>
               <p>
                 {data[alien].name === null ? "Unkown" : `${data[alien].name}`}
               </p>
@@ -66,11 +80,11 @@ const Fetch: React.FC<Props> = ({
                   type="image"
                   src={ultimatrix}
                   onClick={ultimate}
-                  className="h-auto w-2/4"
+                  className="h-auto w-3/4"
                 />
               )}
             </div>
-            <div className="overflow-y-scroll text-lg h-44 no-scrollbar">
+            <div className="overflow-y-scroll h-44 no-scrollbar">
               <p className="bg-lime-800 text-white underline">Abilities: </p>
               {data[alien].abilities.map((ability: string, index: number) => {
                 return <p key={index}>{ability}</p>;
@@ -88,7 +102,12 @@ const Fetch: React.FC<Props> = ({
         )}
       </>
     );
-  else return <Form url={URL} />;
+  else
+    return add ? (
+      <Form url={URL} fRef={fref} />
+    ) : (
+      <button onClick={addAlien}>+</button>
+    );
 };
 
 export default Fetch;
