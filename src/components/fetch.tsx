@@ -1,6 +1,5 @@
 import Form from "./form";
 import ultimatrix from "../assets/omniUlt.svg";
-import { useState } from "react";
 
 interface Primus {
   name: string;
@@ -21,8 +20,9 @@ interface Props {
   data: Primus[];
   ult: boolean;
   setUlt: React.Dispatch<React.SetStateAction<boolean>>;
+  add: boolean;
+  aAlien: () => void;
   fref: React.RefObject<HTMLFormElement>;
-  submit: (e: React.SyntheticEvent) => void;
 }
 
 const Fetch: React.FC<Props> = ({
@@ -36,17 +36,9 @@ const Fetch: React.FC<Props> = ({
   ult,
   setUlt,
   fref,
+  add,
+  aAlien,
 }) => {
-  const [add, setAdd] = useState<boolean>(false);
-
-  const addAlien = () => {
-    if (add) {
-      setAdd(false);
-    } else {
-      setAdd(true);
-    }
-  };
-
   const ultimate = () => {
     if (ult) {
       setUlt(false);
@@ -60,7 +52,7 @@ const Fetch: React.FC<Props> = ({
     return (
       <>
         {dial ? (
-          <div className="grid grid-cols-3 text-sm justify-center-center">
+          <div className="grid grid-cols-3 text-s justify-center-center">
             <div className="flex justify-center items-center">
               <img
                 src={ult ? `${data[alien].ultimate}` : `${data[alien].image}`}
@@ -104,9 +96,14 @@ const Fetch: React.FC<Props> = ({
     );
   else
     return add ? (
-      <Form url={URL} fRef={fref} />
+      <Form url={URL} fRef={fref} aAlien={aAlien} />
     ) : (
-      <button onClick={addAlien}>+</button>
+      <button
+        className="px-3 py-0.5 rounded bg-lime-800 text-white font-bold"
+        onClick={aAlien}
+      >
+        +
+      </button>
     );
 };
 

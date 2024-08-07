@@ -4,6 +4,7 @@ import { useState } from "react";
 interface Props {
   url: string;
   fRef: React.RefObject<HTMLFormElement>;
+  aAlien: () => void;
 }
 
 interface data {
@@ -15,7 +16,7 @@ interface data {
   ultimate: string;
 }
 
-const Form: React.FC<Props> = ({ url, fRef }) => {
+const Form: React.FC<Props> = ({ url, fRef, aAlien }) => {
   const [formData, setFormData] = useState<data>({
     name: "",
     nickname: "",
@@ -31,7 +32,7 @@ const Form: React.FC<Props> = ({ url, fRef }) => {
       ...formData,
       [name]:
         name === "abilities"
-          ? value.split(" ").map((ability) => ability.trim())
+          ? value.split(",").map((ability) => ability.trim())
           : value,
     } as Pick<data, keyof data>); // Type assertion to Pick<Data, keyof Data>
   };
@@ -93,6 +94,12 @@ const Form: React.FC<Props> = ({ url, fRef }) => {
         onSubmit={handleSubmit}
         className="font-custom text-lg flex flex-col items-center overflow-y-scroll no-scrollbar max-h-44"
       >
+        <button
+          className="px-3 py-0.5 rounded bg-lime-800 text-white "
+          onClick={aAlien}
+        >
+          -
+        </button>
         {questions.map((question, index) => {
           return (
             <div key={index}>

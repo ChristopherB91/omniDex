@@ -22,6 +22,7 @@ function App() {
   const [data, setData] = useState<Primus[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
+  const [add, setAdd] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
   const baseUrl: string = `http://localhost:8080/primus`;
 
@@ -39,9 +40,18 @@ function App() {
     fetchData();
   }, [baseUrl]);
 
+  const addAlien = () => {
+    if (add) {
+      setAdd(false);
+    } else {
+      setAdd(true);
+    }
+  };
+
   const triggerFormSubmit = () => {
     if (formRef.current) {
       formRef.current.submit();
+      setAdd(false);
     }
   };
 
@@ -70,7 +80,8 @@ function App() {
                 ult={ultimate}
                 setUlt={setUltimate}
                 fref={formRef}
-                submit={triggerFormSubmit}
+                add={add}
+                aAlien={addAlien}
               />
             ) : (
               <Selections num={presetNum} />
@@ -88,6 +99,7 @@ function App() {
             setUlt={setUltimate}
             err={error}
             submit={triggerFormSubmit}
+            add={add}
           />
         </div>
       </div>
