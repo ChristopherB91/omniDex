@@ -18,6 +18,16 @@ interface Props {
   err: string | undefined;
   submit: (e: React.SyntheticEvent) => void;
   add: boolean;
+  data: Primus[];
+}
+
+interface Primus {
+  name: string;
+  nickname: string;
+  image: string;
+  silhouette: string;
+  abilities: string[];
+  ultimate: string | null;
 }
 
 const Controls: React.FC<Props> = ({
@@ -33,6 +43,7 @@ const Controls: React.FC<Props> = ({
   err,
   submit,
   add,
+  data,
 }) => {
   const next = () => {
     if (num < 6) {
@@ -53,6 +64,9 @@ const Controls: React.FC<Props> = ({
   const nextA = () => {
     if (alien >= num * 10 + 9) {
       setAlien(num * 10);
+    }
+    if (alien >= data.length) {
+      setAlien(60);
     } else {
       setAlien(alien + 1);
     }
@@ -61,6 +75,9 @@ const Controls: React.FC<Props> = ({
   const prevA = () => {
     if (alien <= num * 10) {
       setAlien(num * 10 + 9);
+    }
+    if (alien <= 60) {
+      setAlien(data.length);
     } else {
       setAlien(alien - 1);
     }

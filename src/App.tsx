@@ -100,6 +100,7 @@ function App() {
             err={error}
             submit={triggerFormSubmit}
             add={add}
+            data={data}
           />
         </div>
       </div>
