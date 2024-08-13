@@ -4,6 +4,9 @@ import up from "../assets/arrowU.svg";
 import down from "../assets/arrowD.svg";
 import omni from "../assets/omni.svg";
 import omniDe from "../assets/omniDe.svg";
+import omniAdd from "../assets/omniAdd.svg";
+import omniDial from "../assets/omniDial.svg";
+import { useEffect, useState } from "react";
 
 interface Props {
   num: number;
@@ -18,6 +21,7 @@ interface Props {
   err: string | undefined;
   submit: (e: React.SyntheticEvent) => void;
   add: boolean;
+  aAlien: () => void;
   data: Primus[];
 }
 
@@ -41,15 +45,27 @@ const Controls: React.FC<Props> = ({
   setDial,
   setUlt,
   err,
-  submit,
+  // submit,
   add,
+  aAlien,
   data,
 }) => {
+  const [image, setImage] = useState<string>(omni);
+
+  useEffect(() => {
+    const error = () => {
+      if (err) {
+        setImage(omniDe);
+      }
+    };
+    error();
+  }, [err]);
+
   const next = () => {
     if (num < 6) {
       setNum(num + 1);
     } else {
-      setNum((num = 0));
+      setNum(0);
     }
   };
 
@@ -62,42 +78,63 @@ const Controls: React.FC<Props> = ({
   };
 
   const nextA = () => {
-    if (alien >= num * 10 + 9) {
-      setAlien(num * 10);
-    }
-    if (alien >= data.length) {
-      setAlien(60);
+    if (num !== 6) {
+      if (alien >= num * 10 + 9) {
+        setAlien(num * 10);
+      } else {
+        setAlien(alien + 1);
+      }
     } else {
-      setAlien(alien + 1);
+      if (alien >= data.length) {
+        setAlien(num * 10);
+      } else {
+        setAlien(alien + 1);
+      }
     }
   };
 
   const prevA = () => {
-    if (alien <= num * 10) {
-      setAlien(num * 10 + 9);
-    }
-    if (alien <= 60) {
-      setAlien(data.length);
+    if (num !== 6) {
+      if (alien <= num * 10) {
+        setAlien(num * 10 + 9);
+      } else {
+        setAlien(alien - 1);
+      }
     } else {
-      setAlien(alien - 1);
+      if (alien <= num * 10) {
+        setAlien(data.length);
+      } else {
+        setAlien(alien - 1);
+      }
     }
-  };
-
-  const fetcher = () => {
-    setAlien(num * 10);
-    setF(true);
-  };
-
-  const dialed = () => {
-    setDial(true);
   };
 
   const timeout = () => {
-    setDial(false);
     setF(false);
+    setDial(false);
     setUlt(false);
     setNum(0);
     setAlien(0);
+    setImage(omni);
+  };
+
+  const omniBttn = () => {
+    if (num === 6 && alien === data.length) {
+      aAlien();
+      setImage(omniAdd);
+      if (add) {
+        setImage(omniDial);
+      }
+    } else if (dial && fetched) {
+      timeout();
+    } else if (fetched) {
+      setDial(true);
+      setImage(omniDe);
+    } else {
+      setAlien(num * 10);
+      setF(true);
+      setImage(omniDial);
+    }
   };
 
   return (
@@ -141,30 +178,14 @@ const Controls: React.FC<Props> = ({
             className="h-auto w-3/4 row-start-3 row-end-4 col-start-2 col-end-3"
           />
         </div>
-        {fetched && num === 6 ? (
-          <input
-            type="Image"
-            className="h-auto w-1/3"
-            src={omni}
-            onClick={submit}
-          />
-        ) : dial || err ? (
-          <input
-            type="image"
-            src={omniDe}
-            alt="confirmation button"
-            onClick={timeout}
-            className="h-auto w-1/3"
-          />
-        ) : (
-          <input
-            type="image"
-            src={omni}
-            alt="confirmation button"
-            onClick={fetched ? dialed : fetcher}
-            className="h-auto w-1/3"
-          />
-        )}
+        <input
+          type="image"
+          src={image}
+          alt="confirmation button"
+          onClick={omniBttn}
+          disabled={err ? true : false}
+          className="h-auto w-1/3"
+        />
       </div>
     </>
   );

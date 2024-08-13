@@ -52,7 +52,7 @@ const Fetch: React.FC<Props> = ({
     return (
       <>
         {dial ? (
-          <div className="grid grid-cols-3 text-s justify-center-center">
+          <div className="grid grid-cols-3 justify-center-center">
             <div className="flex justify-center items-center">
               <img
                 src={ult ? `${data[alien].ultimate}` : `${data[alien].image}`}
@@ -62,11 +62,11 @@ const Fetch: React.FC<Props> = ({
             </div>
             <div>
               <p className="bg-lime-800 text-white underline text">Species</p>
-              <p>
+              <p className="text-sm">
                 {data[alien].name === null ? "Unkown" : `${data[alien].name}`}
               </p>
               <p className="bg-lime-800 text-white underline">Nickname</p>
-              <p>{data[alien].nickname}</p>
+              <p className="text-sm">{data[alien].nickname}</p>
               {data[alien].ultimate && (
                 <input
                   type="image"
@@ -79,7 +79,11 @@ const Fetch: React.FC<Props> = ({
             <div className="overflow-y-scroll h-44 no-scrollbar">
               <p className="bg-lime-800 text-white underline">Abilities: </p>
               {data[alien].abilities.map((ability: string, index: number) => {
-                return <p key={index}>{ability}</p>;
+                return (
+                  <p key={index} className="text-sm">
+                    {ability}
+                  </p>
+                );
               })}
             </div>
           </div>
