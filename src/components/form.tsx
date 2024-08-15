@@ -1,23 +1,37 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   url: string;
   fRef: React.RefObject<HTMLFormElement>;
   aAlien: () => void;
+  upd: boolean;
+  con2: () => void;
+  data: data[];
+  alienNum: number;
 }
 
 interface data {
+  id: number;
   name: string;
   nickname: string;
   image: string;
   silhouette: string;
   abilities: string[];
-  ultimate: string;
+  ultimate: string | null;
 }
 
-const Form: React.FC<Props> = ({ url, fRef, aAlien }) => {
+const Form: React.FC<Props> = ({
+  url,
+  fRef,
+  aAlien,
+  upd,
+  data,
+  alienNum,
+  con2,
+}) => {
   const [formData, setFormData] = useState<data>({
+    id: 0,
     name: "",
     nickname: "",
     image: "",
@@ -26,24 +40,29 @@ const Form: React.FC<Props> = ({ url, fRef, aAlien }) => {
     ultimate: "",
   });
 
+  useEffect(() => {
+    if (upd) setFormData({ ...data[alienNum] });
+  }, [upd, alienNum, data]);
+
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]:
         name === "abilities"
           ? value.split(",").map((ability) => ability.trim())
           : value,
-    } as Pick<data, keyof data>); // Type assertion to Pick<Data, keyof Data>
+    }));
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${url}/addAlien`, formData);
+      const response = upd
+        ? await axios.put(`${url}/updAlien/${data[alienNum].id}`, formData)
+        : await axios.post(`${url}/addAlien`, formData);
       window.alert(response.data);
     } catch (error) {
-      console.error("Error injectiing alien DNA", error);
       window.alert("Error injectiing alien DNA");
     }
   };
@@ -87,6 +106,13 @@ const Form: React.FC<Props> = ({ url, fRef, aAlien }) => {
     },
   ];
 
+  const esc = () => {
+    if (!upd) {
+      aAlien;
+    } else {
+      con2;
+    }
+  };
   return (
     <>
       <form
@@ -96,7 +122,7 @@ const Form: React.FC<Props> = ({ url, fRef, aAlien }) => {
       >
         <button
           className="px-3 py-0.5 rounded bg-lime-800 text-white "
-          onClick={aAlien}
+          onClick={esc}
         >
           -
         </button>

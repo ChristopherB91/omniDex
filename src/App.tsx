@@ -5,6 +5,7 @@ import Controls from "./components/controls";
 import Selections from "./components/selections";
 
 interface Primus {
+  id: number;
   name: string;
   nickname: string;
   image: string;
