@@ -97,6 +97,7 @@ function App() {
             setAlien={setAlienNum}
             dial={dialed}
             setDial={setDialed}
+            ult={ultimate}
             setUlt={setUltimate}
             err={error}
             submit={triggerFormSubmit}

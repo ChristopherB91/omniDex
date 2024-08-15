@@ -6,6 +6,7 @@ import omni from "../assets/omni.svg";
 import omniDe from "../assets/omniDe.svg";
 import omniAdd from "../assets/omniAdd.svg";
 import omniDial from "../assets/omniDial.svg";
+import omniUlt from "../assets/omniUlt.svg";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
   setAlien: React.Dispatch<React.SetStateAction<number>>;
   dial: boolean;
   setDial: React.Dispatch<React.SetStateAction<boolean>>;
+  ult: boolean;
   setUlt: React.Dispatch<React.SetStateAction<boolean>>;
   err: string | undefined;
   submit: (e: React.SyntheticEvent) => void;
@@ -43,6 +45,7 @@ const Controls: React.FC<Props> = ({
   setAlien,
   dial,
   setDial,
+  ult,
   setUlt,
   err,
   // submit,
@@ -125,11 +128,21 @@ const Controls: React.FC<Props> = ({
       if (add) {
         setImage(omniDial);
       }
+    } else if ((dial && data[alien].ultimate !== null) || "") {
+      setUlt(true);
+      setImage(omniDe);
+      if (ult) {
+        timeout();
+      }
     } else if (dial && fetched) {
       timeout();
     } else if (fetched) {
       setDial(true);
-      setImage(omniDe);
+      if (data[alien].ultimate !== null || "") {
+        setImage(omniUlt);
+      } else {
+        setImage(omniDe);
+      }
     } else {
       setAlien(num * 10);
       setF(true);

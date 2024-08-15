@@ -1,5 +1,4 @@
 import Form from "./form";
-import ultimatrix from "../assets/omniUlt.svg";
 import { useState } from "react";
 import axios from "axios";
 
@@ -37,19 +36,10 @@ const Fetch: React.FC<Props> = ({
   error,
   data,
   ult,
-  setUlt,
   fref,
   add,
   aAlien,
 }) => {
-  const ultimate = () => {
-    if (ult) {
-      setUlt(false);
-    } else {
-      setUlt(true);
-    }
-  };
-
   const [del, setDel] = useState<boolean>(false);
   const [upd, setUpd] = useState<boolean>(false);
 
@@ -99,14 +89,6 @@ const Fetch: React.FC<Props> = ({
               </p>
               <p className="bg-lime-800 text-white underline">Nickname</p>
               <p className="text-sm">{data[alien].nickname}</p>
-              {data[alien].ultimate && (
-                <input
-                  type="image"
-                  src={ultimatrix}
-                  onClick={ultimate}
-                  className="h-auto w-3/4"
-                />
-              )}
             </div>
             <div className="overflow-y-scroll h-44 no-scrollbar">
               <p className="bg-lime-800 text-white underline">Abilities: </p>
