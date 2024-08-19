@@ -115,17 +115,17 @@ const Form: React.FC<Props> = ({
   };
   return (
     <>
+      <button
+        className="px-3 py-0.5 rounded bg-lime-800 text-white "
+        onClick={esc}
+      >
+        -
+      </button>
       <form
         ref={fRef}
         onSubmit={handleSubmit}
         className="font-custom text-lg flex flex-col items-center overflow-y-scroll no-scrollbar max-h-44"
       >
-        <button
-          className="px-3 py-0.5 rounded bg-lime-800 text-white "
-          onClick={esc}
-        >
-          -
-        </button>
         {questions.map((question, index) => {
           return (
             <div key={index}>

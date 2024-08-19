@@ -197,7 +197,7 @@ const Controls: React.FC<Props> = ({
           alt="confirmation button"
           onClick={omniBttn}
           disabled={err ? true : false}
-          className="h-auto w-1/3"
+          className={add ? "h-auto w-1/3 animate-spin" : "h-auto w-1/3"}
         />
       </div>
     </>
