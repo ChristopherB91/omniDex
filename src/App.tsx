@@ -49,10 +49,11 @@ function App() {
     }
   };
 
-  const triggerFormSubmit = () => {
+  const triggerFormSubmit = (e: React.SyntheticEvent) => {
     if (formRef.current) {
+      e.preventDefault();
       formRef.current.submit();
-      setAdd(false);
+      setFetched(false);
     }
   };
 
@@ -83,6 +84,7 @@ function App() {
                 fref={formRef}
                 add={add}
                 aAlien={addAlien}
+                setF={setFetched}
               />
             ) : (
               <Selections num={presetNum} />

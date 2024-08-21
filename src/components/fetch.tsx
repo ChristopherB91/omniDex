@@ -25,6 +25,7 @@ interface Props {
   add: boolean;
   aAlien: () => void;
   fref: React.RefObject<HTMLFormElement>;
+  setF: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Fetch: React.FC<Props> = ({
@@ -39,6 +40,7 @@ const Fetch: React.FC<Props> = ({
   fref,
   add,
   aAlien,
+  setF,
 }) => {
   const [del, setDel] = useState<boolean>(false);
   const [upd, setUpd] = useState<boolean>(false);
@@ -52,17 +54,15 @@ const Fetch: React.FC<Props> = ({
   };
 
   const confirm2 = () => {
-    if (upd) {
-      setUpd(false);
-    } else {
-      setUpd(true);
-    }
+    setUpd((prevState) => !prevState);
+    console.log(upd);
   };
 
   const remove = async () => {
     try {
       const response = await axios.delete(`${URL}/delAlien/${data[alien].id}`);
       window.alert(response.data);
+      setF(false);
     } catch (error) {
       window.alert(error);
     }

@@ -48,7 +48,7 @@ const Controls: React.FC<Props> = ({
   ult,
   setUlt,
   err,
-  // submit,
+  submit,
   add,
   aAlien,
   data,
@@ -123,12 +123,13 @@ const Controls: React.FC<Props> = ({
 
   const omniBttn = () => {
     if (num === 6 && alien === data.length) {
-      aAlien();
-      setImage(omniAdd);
       if (add) {
-        setImage(omniDial);
+        submit;
+      } else {
+        aAlien();
+        setImage(omniAdd);
       }
-    } else if ((dial && data[alien].ultimate !== null) || "") {
+    } else if (dial && data[alien].ultimate != null) {
       setUlt(true);
       setImage(omniDe);
       if (ult) {
@@ -197,7 +198,11 @@ const Controls: React.FC<Props> = ({
           alt="confirmation button"
           onClick={omniBttn}
           disabled={err ? true : false}
-          className={add ? "h-auto w-1/3 animate-spin" : "h-auto w-1/3"}
+          className={
+            add
+              ? "h-auto w-1/3 animate-spin hover:animate-none"
+              : "h-auto w-1/3"
+          }
         />
       </div>
     </>

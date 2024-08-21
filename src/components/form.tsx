@@ -106,48 +106,50 @@ const Form: React.FC<Props> = ({
     },
   ];
 
-  const esc = () => {
+  const back = () => {
     if (!upd) {
       aAlien;
     } else {
       con2;
     }
   };
+
   return (
-    <>
+    <form
+      ref={fRef}
+      onSubmit={handleSubmit}
+      className="font-custom text-lg flex flex-col items-center overflow-y-scroll no-scrollbar max-h-44"
+    >
       <button
         className="px-3 py-0.5 rounded bg-lime-800 text-white "
-        onClick={esc}
+        onClick={back}
+        type="button"
       >
         -
       </button>
-      <form
-        ref={fRef}
-        onSubmit={handleSubmit}
-        className="font-custom text-lg flex flex-col items-center overflow-y-scroll no-scrollbar max-h-44"
-      >
-        {questions.map((question, index) => {
-          return (
-            <div key={index}>
-              <label htmlFor={question.name}>{question.label}</label>
-              <br />
-              <input
-                key={index}
-                type={question.type}
-                name={question.name}
-                id={question.name}
-                placeholder={question.placeholder}
-                required={question.placeholder === "Required"}
-                onChange={change}
-                value={formData[question.name as keyof data] || ""}
-                autoFocus={question.name === "name"}
-              />
-            </div>
-          );
-        })}
-        <input type="submit" className="visible" />
-      </form>
-    </>
+      {questions.map((question, index) => {
+        return (
+          <div key={index}>
+            <label htmlFor={question.name}>{question.label}</label>
+            <br />
+            <input
+              key={index}
+              type={question.type}
+              name={question.name}
+              id={question.name}
+              placeholder={question.placeholder}
+              required={question.placeholder === "Required"}
+              onChange={change}
+              value={formData[question.name as keyof data] || ""}
+              autoFocus={question.name === "name"}
+            />
+          </div>
+        );
+      })}
+      <button type="submit" className="visible">
+        SUBMIT
+      </button>
+    </form>
   );
 };
 
