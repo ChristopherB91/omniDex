@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 interface Props {
   url: string;
-  fRef: React.RefObject<HTMLFormElement>;
   aAlien: () => void;
   upd: boolean;
   con2: () => void;
@@ -21,15 +20,7 @@ interface data {
   ultimate: string | null;
 }
 
-const Form: React.FC<Props> = ({
-  url,
-  fRef,
-  aAlien,
-  upd,
-  data,
-  alienNum,
-  con2,
-}) => {
+const Form: React.FC<Props> = ({ url, aAlien, upd, data, alienNum, con2 }) => {
   const [formData, setFormData] = useState<data>({
     id: 0,
     name: "",
@@ -50,20 +41,20 @@ const Form: React.FC<Props> = ({
       ...prevFormData,
       [name]:
         name === "abilities"
-          ? value.split(",").map((ability) => ability.trim())
+          ? value.split(",").map((ability) => ability)
           : value,
     }));
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
     try {
       const response = upd
         ? await axios.put(`${url}/updAlien/${data[alienNum].id}`, formData)
         : await axios.post(`${url}/addAlien`, formData);
       window.alert(response.data);
     } catch (error) {
-      window.alert("Error injectiing alien DNA");
+      e.preventDefault();
+      window.alert(`Error injectiing alien DNA, ${error}`);
     }
   };
 
@@ -108,15 +99,14 @@ const Form: React.FC<Props> = ({
 
   const back = () => {
     if (!upd) {
-      aAlien;
+      aAlien();
     } else {
-      con2;
+      con2();
     }
   };
 
   return (
     <form
-      ref={fRef}
       onSubmit={handleSubmit}
       className="font-custom text-lg flex flex-col items-center overflow-y-scroll no-scrollbar max-h-44"
     >
@@ -129,7 +119,7 @@ const Form: React.FC<Props> = ({
       </button>
       {questions.map((question, index) => {
         return (
-          <div key={index}>
+          <div>
             <label htmlFor={question.name}>{question.label}</label>
             <br />
             <input
@@ -146,7 +136,10 @@ const Form: React.FC<Props> = ({
           </div>
         );
       })}
-      <button type="submit" className="visible">
+      <button
+        type="submit"
+        className="bg-lime-900 hover:bg-lime-700 text-white hover:text-black  font-bold  px-1 rounded-r"
+      >
         SUBMIT
       </button>
     </form>

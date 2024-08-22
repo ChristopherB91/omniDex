@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Fetch from "./components/fetch";
 import Controls from "./components/controls";
@@ -24,7 +24,6 @@ function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
   const [add, setAdd] = useState<boolean>(false);
-  const formRef = useRef<HTMLFormElement>(null);
   const baseUrl: string = `http://localhost:8080/primus`;
 
   useEffect(() => {
@@ -39,21 +38,14 @@ function App() {
       }
     };
     fetchData();
-  }, [baseUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addAlien = () => {
     if (add) {
       setAdd(false);
     } else {
       setAdd(true);
-    }
-  };
-
-  const triggerFormSubmit = (e: React.SyntheticEvent) => {
-    if (formRef.current) {
-      e.preventDefault();
-      formRef.current.submit();
-      setFetched(false);
     }
   };
 
@@ -81,10 +73,8 @@ function App() {
                 data={data}
                 ult={ultimate}
                 setUlt={setUltimate}
-                fref={formRef}
                 add={add}
                 aAlien={addAlien}
-                setF={setFetched}
               />
             ) : (
               <Selections num={presetNum} />
@@ -102,7 +92,6 @@ function App() {
             ult={ultimate}
             setUlt={setUltimate}
             err={error}
-            submit={triggerFormSubmit}
             add={add}
             aAlien={addAlien}
             data={data}

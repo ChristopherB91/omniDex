@@ -24,8 +24,6 @@ interface Props {
   setUlt: React.Dispatch<React.SetStateAction<boolean>>;
   add: boolean;
   aAlien: () => void;
-  fref: React.RefObject<HTMLFormElement>;
-  setF: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Fetch: React.FC<Props> = ({
@@ -37,10 +35,8 @@ const Fetch: React.FC<Props> = ({
   error,
   data,
   ult,
-  fref,
   add,
   aAlien,
-  setF,
 }) => {
   const [del, setDel] = useState<boolean>(false);
   const [upd, setUpd] = useState<boolean>(false);
@@ -55,16 +51,16 @@ const Fetch: React.FC<Props> = ({
 
   const confirm2 = () => {
     setUpd((prevState) => !prevState);
-    console.log(upd);
   };
 
   const remove = async () => {
     try {
       const response = await axios.delete(`${URL}/delAlien/${data[alien].id}`);
       window.alert(response.data);
-      setF(false);
+      window.location.reload();
     } catch (error) {
       window.alert(error);
+      window.location.reload();
     }
   };
 
@@ -118,7 +114,6 @@ const Fetch: React.FC<Props> = ({
         {upd ? (
           <Form
             url={URL}
-            fRef={fref}
             aAlien={aAlien}
             upd={upd}
             con2={confirm2}
@@ -196,7 +191,7 @@ const Fetch: React.FC<Props> = ({
           <div className="flex justify-center">
             <img
               src={
-                `${data[alien].silhouette}` === "" || null || undefined
+                data[alien].silhouette === null
                   ? `${data[alien].image}`
                   : `${data[alien].silhouette}`
               }
@@ -211,7 +206,6 @@ const Fetch: React.FC<Props> = ({
     return add ? (
       <Form
         url={URL}
-        fRef={fref}
         aAlien={aAlien}
         upd={upd}
         con2={confirm2}

@@ -21,7 +21,6 @@ interface Props {
   ult: boolean;
   setUlt: React.Dispatch<React.SetStateAction<boolean>>;
   err: string | undefined;
-  submit: (e: React.SyntheticEvent) => void;
   add: boolean;
   aAlien: () => void;
   data: Primus[];
@@ -48,7 +47,6 @@ const Controls: React.FC<Props> = ({
   ult,
   setUlt,
   err,
-  submit,
   add,
   aAlien,
   data,
@@ -124,7 +122,8 @@ const Controls: React.FC<Props> = ({
   const omniBttn = () => {
     if (num === 6 && alien === data.length) {
       if (add) {
-        submit;
+        aAlien();
+        setImage(omniDial);
       } else {
         aAlien();
         setImage(omniAdd);
