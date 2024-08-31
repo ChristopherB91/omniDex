@@ -1,4 +1,4 @@
 FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
-COPY server/target/*.jar app.jar
+COPY server/target/Primus-0.0.1-SNAPSHOT.jar Primus.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
