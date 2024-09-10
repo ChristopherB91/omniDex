@@ -1,8 +1,4 @@
-FROM maven:3.8.6-openjdk-18 AS build
-COPY . .
-RUN mvn clean package -DskipTests
-
-FROM openjdk:22-jdk
-COPY --from=build server/target/Primus-0.0.1-SNAPSHOT.jar Primus.jar
-EXPOSE 8080
-ENTRYPOINT ["java","-jar","/Primus.jar"]
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
