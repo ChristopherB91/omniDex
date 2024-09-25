@@ -1,0 +1,33 @@
+{
+    "java.compile.nullAnalysis.mode": "disabled",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Primus",
+            "database": "primus",
+            "username": "root",
+            "password": "!Nov3Tw3nty"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "primus-db.c7usomumy6v3.us-east-2.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "PrimusAWS",
+            "database": "primus",
+            "username": "DeveloperInProg",
+            "password": "!Nov3Tw3nty"
+        }
+    ]
+}
