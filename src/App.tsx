@@ -24,7 +24,7 @@ function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
   const [add, setAdd] = useState<boolean>(false);
-  const baseUrl: string = `https://omnidex.onrender.com/primus`;
+  const baseUrl: string = `https://omnidex.onrender.com/`;
 
   useEffect(() => {
     const fetchData = async () => {
