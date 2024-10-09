@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chris.Primus.model.Alien;
 import com.chris.Primus.service.AlienService;
 
-@CrossOrigin(origins = "http://127.0.0.1:5173")
+@CrossOrigin(origins = "https://omnidex.vercel.app/")
 @RestController
 @RequestMapping("/primus/")
 public class AlienController {
