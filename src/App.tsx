@@ -29,7 +29,9 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(baseUrl + "/allAliens");
+        const res = await axios.get(
+          `${baseUrl}/allAliens?offset=${presetNum * 10}&limit=10`
+        );
         setData(res.data);
       } catch (err) {
         setError("Error fetching data");
